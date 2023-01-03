@@ -2,6 +2,8 @@ package example;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.amazonaws.services.lambda.runtime.Context;
@@ -34,6 +36,11 @@ class InvokeTest {
           .registerTypeAdapter(SQSEvent.class, new SQSEventDeserializer())
           .setPrettyPrinting()
           .create();
+
+    @BeforeAll
+    public static void setUp() {
+        System.setProperty("aws.region", "us-west-2");
+    }
 
   public InvokeTest() {
     AWSXRayRecorderBuilder builder = AWSXRayRecorderBuilder.standard();
